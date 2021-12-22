@@ -1,0 +1,167 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 1,
+      "content": {
+        "json": "## New workbook\n---\n\nWelcome to your new workbook.  This area will display text formatted as markdown.\n\n\nWe've included a basic analytics query to get you started. Use the `Edit` button below each section to configure it or add more sections."
+      },
+      "name": "text - 2"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "TestReport2_CL\r\n| summarize TestReport2_CL = count() by Bitlockerstatus_s",
+              "size": 4,
+              "title": "Bitlocker status",
+              "timeContext": {
+                "durationMs": 86400000
+              },
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "visualization": "piechart",
+              "chartSettings": {
+                "seriesLabelSettings": [
+                  {
+                    "seriesName": "Enabled",
+                    "color": "green"
+                  },
+                  {
+                    "seriesName": "Disabled",
+                    "color": "redBright"
+                  }
+                ]
+              }
+            },
+            "customWidth": "50",
+            "name": "query - 2",
+            "styleSettings": {
+              "showBorder": true
+            }
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "TestReport2_CL\r\n| summarize TestReport2_CL = count() by Model_s",
+              "size": 4,
+              "title": "Devices per model",
+              "timeContext": {
+                "durationMs": 86400000
+              },
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "visualization": "piechart"
+            },
+            "customWidth": "50",
+            "name": "query - 2",
+            "styleSettings": {
+              "showBorder": true
+            }
+          }
+        ]
+      },
+      "name": "group - 4"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "TestReport2_CL\r\n| summarize arg_max (TimeGenerated,*) by ComputerName_s\r\n| project Computer=ComputerName_s, User=User_s,Model=Model_s,\r\n['BIOS version']=BIOSVersion_s,['Bitlocker status']=Bitlockerstatus_s,\r\n['Disk size']=FullDiskSize_s,['Free space']=FreeDiskSpace_s,['Free space %']=FreeDiskPercent_d",
+        "size": 4,
+        "title": "Devices information",
+        "timeContext": {
+          "durationMs": 86400000
+        },
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "gridSettings": {
+          "formatters": [
+            {
+              "columnMatch": "Bitlocker status",
+              "formatter": 18,
+              "formatOptions": {
+                "thresholdsOptions": "icons",
+                "thresholdsGrid": [
+                  {
+                    "operator": "==",
+                    "thresholdValue": "Enabled",
+                    "representation": "success"
+                  },
+                  {
+                    "operator": "Default",
+                    "thresholdValue": null,
+                    "representation": "2",
+                    "text": "{0}{1}"
+                  }
+                ]
+              }
+            },
+            {
+              "columnMatch": "Disk size",
+              "formatter": 0,
+              "numberFormat": {
+                "unit": 4,
+                "options": {
+                  "style": "decimal"
+                }
+              }
+            },
+            {
+              "columnMatch": "Free space",
+              "formatter": 0,
+              "numberFormat": {
+                "unit": 4,
+                "options": {
+                  "style": "decimal"
+                }
+              }
+            },
+            {
+              "columnMatch": "Free space %",
+              "formatter": 18,
+              "formatOptions": {
+                "thresholdsOptions": "colors",
+                "thresholdsGrid": [
+                  {
+                    "operator": "<",
+                    "thresholdValue": "20",
+                    "representation": "redBright",
+                    "text": "{0}{1}"
+                  },
+                  {
+                    "operator": ">",
+                    "thresholdValue": "20",
+                    "representation": "green",
+                    "text": "{0}{1}"
+                  },
+                  {
+                    "operator": "Default",
+                    "thresholdValue": null,
+                    "text": "{0}{1}"
+                  }
+                ]
+              },
+              "numberFormat": {
+                "unit": 1,
+                "options": {
+                  "style": "decimal"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "name": "query - 3",
+      "styleSettings": {
+        "showBorder": true
+      }
+    }
+  ],
