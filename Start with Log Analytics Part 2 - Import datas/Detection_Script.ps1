@@ -1,12 +1,9 @@
 #***************************************** Part to fill ***************************************************
 # Log analytics part
-$ResourceGroup = ""
-$WorkspaceName = ""
 $CustomerId = ""
 $SharedKey = ''
 $LogType = "TestReport"
 $TimeStampField = ""
-$SubscriptionID = "7f1fffa6-e07a-446b-bd04-d960d202cca2"
 #***********************************************************************************************************
 
 # Log analytics functions
